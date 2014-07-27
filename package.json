@@ -35,7 +35,8 @@
     "node": ">=0.10.22"
   },
   "scripts": {
-    "start": "node node_modules/hoodie-server/bin/start"
+    "start": "node node_modules/hoodie-server/bin/start",
+    "postinstall": "grunt install_bower"
   },
   "hoodie": {
     "plugins": [

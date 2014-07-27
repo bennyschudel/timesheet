@@ -2,13 +2,14 @@
 
 ## installation
 
-  npm install
-
-  grunt install_bower
+```
+npm install
+```
 
 
 ## development
 
-  hoodie start
-
-  grunt watch
+```
+hoodie start
+grunt watch
+```
