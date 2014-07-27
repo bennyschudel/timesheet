@@ -1,0 +1,21 @@
+{
+  "name": "trackly",
+  "version": "0.0.0",
+  "homepage": "https://github.com/nzzdev/red-visualization-platform",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "lodash": "~2.4.1",
+    "bourbon": "~3.2.0",
+    "momentjs": "~2.7.0",
+    "backbone": "~1.1.2"
+  }
+}

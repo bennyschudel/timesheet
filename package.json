@@ -1,0 +1,47 @@
+{
+  "name": "trackly",
+  "version": "2.0.2",
+  "type": "app",
+  "dependencies": {
+    "hoodie-server": "^1.0.0",
+    "hoodie-plugin-appconfig": "^2.0.0",
+    "hoodie-plugin-email": "^1.0.0",
+    "hoodie-plugin-users": "^1.0.0",
+    "d3": "^3.4.9",
+    "lodash": "^2.4.1"
+  },
+  "devDependencies": {
+    "connect-livereload": "^0.4.0",
+    "grunt": "^0.4.5",
+    "grunt-contrib-clean": "^0.5.0",
+    "grunt-contrib-concat": "^0.4.0",
+    "grunt-contrib-connect": "^0.8.0",
+    "grunt-contrib-copy": "^0.5.0",
+    "grunt-contrib-cssmin": "^0.10.0",
+    "grunt-contrib-uglify": "^0.5.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-filerev": "^0.2.1",
+    "grunt-sass": "^0.14.0",
+    "grunt-shell": "^0.7.0",
+    "grunt-usemin": "^2.3.0",
+    "jshint-stylish": "^0.2.0",
+    "load-grunt-tasks": "^0.6.0",
+    "node-sass": "^0.9.3"
+  },
+  "files": [
+    "www/"
+  ],
+  "engines": {
+    "node": ">=0.10.22"
+  },
+  "scripts": {
+    "start": "node node_modules/hoodie-server/bin/start"
+  },
+  "hoodie": {
+    "plugins": [
+      "hoodie-plugin-appconfig",
+      "hoodie-plugin-email",
+      "hoodie-plugin-users"
+    ]
+  }
+}
