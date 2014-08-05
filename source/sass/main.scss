@@ -38,7 +38,8 @@ input, textarea, button {
 
   border-radius: 0;
 
-  font-family: 'FiraSans-Light';
+  font-family: 'Fira Sans';
+  font-weight: 300;
   font-size: 1rem;
 
   outline: none;
@@ -64,7 +65,8 @@ input[readonly] {
 input[type="text"] {
 }
 input[type="button"], button {
-  font-family: 'FiraSans-Regular';
+  font-family: 'Fira Sans';
+  font-weight: 300;
 
   background-color: transparent;
   border-color: black;

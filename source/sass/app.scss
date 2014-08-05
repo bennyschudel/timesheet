@@ -9,7 +9,9 @@
 body {
 	background-color: #FFF;
 
-	font-family: 'FiraSans-Light';
+	font-family: 'Fira Sans';
+	font-weight: 300;
+
 	color: darken(white, 80);
 
 	margin: 0;
@@ -26,7 +28,7 @@ a {
 }
 
 .bold {
-	font-family: 'FiraSans-Regular';
+	font-weight: 500;
 }
 
 .hoodie-accountbar {
