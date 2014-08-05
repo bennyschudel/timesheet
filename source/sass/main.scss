@@ -1,0 +1,99 @@
+@import '../../bower_components/bourbon/dist/bourbon';
+
+/* ==========================================================================
+   Hoodie Sign In / Sign Up / Sign out stylings
+   ========================================================================== */
+
+body {
+  background-attachment: fixed;
+}
+
+
+.container {
+}
+
+
+/* hide contents until we know if user is signed in or not */
+body .hoodie-account-signedin,
+body .hoodie-account-signedout,
+body .hoodie-account-error {
+  display: none;
+}
+
+html[data-hoodie-account-status=signedin]  .hoodie-account-signedin,
+html[data-hoodie-account-status=error]     .hoodie-account-error,
+html[data-hoodie-account-status=signedout] .hoodie-account-signedout {
+  display: block;
+}
+
+.hoodie-accountbar {
+  position: absolute;
+  top: 20px;
+  right: 10px;
+}
+
+input, textarea, button {
+  padding: 0;
+  margin: 0.5rem 0 0 0;
+
+  border-radius: 0;
+
+  font-family: 'FiraSans-Light';
+  font-size: 1rem;
+
+  outline: none;
+  border-style: solid;
+  border-width: 0 0 1px 0;
+  border-color: #999;
+
+  background-color: transparent;
+
+  &.filled {
+    border-color: black;
+  }
+}
+textarea {
+  padding: 0;
+}
+input[readonly] {
+  border-width: 0;
+  cursor: auto;
+  outline: 0;
+  box-shadow: none;
+}
+input[type="text"] {
+}
+input[type="button"], button {
+  font-family: 'FiraSans-Regular';
+
+  background-color: transparent;
+  border-color: black;
+}
+input[type="radio"] {
+  @include appearance(none);
+
+  background-color: transparent;
+  width: 1rem;
+  height: 1rem;
+
+  border-width: 1px;
+  border-radius: 50%;
+
+  &:after {
+    content: "";
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    bottom: 4px;
+    left: 4px;
+    border-radius: 50%;
+  }
+
+  &:checked {
+    border-color: black;
+
+    &:after {
+      background-color: black;
+    }
+  }
+}

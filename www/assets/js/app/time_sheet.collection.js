@@ -6,7 +6,7 @@ var app = app || {};
 		model: app.TimeEntry,
 
 		comparator: function(item) {
-			return -item.get('from_ts');
+			return [-item.get('date_ts'), item.get('date_from')];
 		}
 
 	});

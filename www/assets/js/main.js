@@ -31,7 +31,8 @@ $inputmask.on('submit', function(evt) {
 		date_ts: date.unix(),
 		from_ts: from.unix(),
 		until_ts: until.unix(),
-		span: until.diff(from, 'seconds')
+		span: until.diff(from, 'seconds'),
+		note: els.note.value
 	};
 
 	app.time_sheet.create(obj);

@@ -5,86 +5,348 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<title>trackly</title>
 		<meta name="description" content="">
-		<meta name="viewport" content="width=device-width">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
 
-		<link rel="stylesheet" href="assets/css/main.css">
-		<link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
+<!-- 		<link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
+ -->		<link rel="stylesheet" href="assets/css/main.css">
+		<link rel="stylesheet" href="assets/css/app.css">
 
 		<script id="time_entry_tpl" type="text/html">
 			<input type="text" value="<%= moment(date_ts * 1e3).format('D') %>" readonly>
 			<input type="text" value="<%= moment(from_ts * 1e3).format('HH:mm') %>" readonly>
 			<input type="text" value="<%= moment(until_ts * 1e3).format('HH:mm') %>" readonly>
 			<input type="text" value="<%= app.utils.formatHours(span) %>" readonly>
+			<textarea readonly><%= note %></textarea>
 		</script>
 
 	</head>
 	<body>
 
+		<div class="hoodie-accountbar">
+
+			<div class="hoodie-account-signedout">
+				<span class="btn-group">
+					<button class="btn btn-small btn-inverse" data-hoodie-action="signup">Sign Up</button>
+					<button class="btn btn-small dropdown-toggle btn-inverse" data-toggle="dropdown">
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu pull-right">
+						<li><a href="#" data-hoodie-action="signin">Sign In</a></li>
+						<li><a href="#" data-hoodie-action="resetpassword">Reset Password</a></li>
+						<li><a href="#" data-hoodie-action="destroy">Clear local data</a></li>
+					</ul>
+				</span>
+			</div>
+
+			<div class="hoodie-account-signedin">
+				Hello,
+				<span class="hoodie-username"><!-- usern name will be filled in here --></span>
+				<span class="btn-group">
+					<button class="btn btn-small btn-inverse" data-hoodie-action="signout">Sign Out</button>
+					<button class="btn btn-small dropdown-toggle btn-inverse" data-toggle="dropdown">
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu pull-right">
+						<li><a href="#" data-hoodie-action="changepassword">Change Password</a></li>
+						<li><a href="#" data-hoodie-action="changeusername">Change Username</a></li>
+						<li><a href="#" data-hoodie-action="destroy">Destroy Account</a></li>
+					</ul>
+				</span>
+			</div>
+
+			<div class="hoodie-account-error">
+				Hello,
+				<span class="hoodie-username"><!-- username will be filled in here --></span>.
+				<span class="btn-group">
+					<button class="btn btn-small btn-danger" data-hoodie-action="signin">Authentication error: Sign in again</button>
+					<button class="btn btn-small dropdown-toggle btn-danger" data-toggle="dropdown">
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu pull-right">
+						<li><a href="#" data-hoodie-action="signout">Sign out</a></li>
+					</ul>
+				</span>
+			</div>
+		</div>
+
 		<div class="container">
-			<div class="hero-unit">
-				<h1>trackly</h1>
-
-				<div class="hoodie-accountbar">
-
-					<div class="hoodie-account-signedout">
-						<span class="btn-group">
-							<button class="btn btn-small btn-inverse" data-hoodie-action="signup">Sign Up</button>
-							<button class="btn btn-small dropdown-toggle btn-inverse" data-toggle="dropdown">
-								<span class="caret"></span>
-							</button>
-							<ul class="dropdown-menu pull-right">
-								<li><a href="#" data-hoodie-action="signin">Sign In</a></li>
-								<li><a href="#" data-hoodie-action="resetpassword">Reset Password</a></li>
-								<li><a href="#" data-hoodie-action="destroy">Clear local data</a></li>
-							</ul>
-						</span>
-					</div>
-
-					<div class="hoodie-account-signedin">
-						Hello,
-						<span class="hoodie-username"><!-- usern name will be filled in here --></span>
-						<span class="btn-group">
-							<button class="btn btn-small btn-inverse" data-hoodie-action="signout">Sign Out</button>
-							<button class="btn btn-small dropdown-toggle btn-inverse" data-toggle="dropdown">
-								<span class="caret"></span>
-							</button>
-							<ul class="dropdown-menu pull-right">
-								<li><a href="#" data-hoodie-action="changepassword">Change Password</a></li>
-								<li><a href="#" data-hoodie-action="changeusername">Change Username</a></li>
-								<li><a href="#" data-hoodie-action="destroy">Destroy Account</a></li>
-							</ul>
-						</span>
-					</div>
-
-					<div class="hoodie-account-error">
-						Hello,
-						<span class="hoodie-username"><!-- username will be filled in here --></span>.
-						<span class="btn-group">
-							<button class="btn btn-small btn-danger" data-hoodie-action="signin">Authentication error: Sign in again</button>
-							<button class="btn btn-small dropdown-toggle btn-danger" data-toggle="dropdown">
-								<span class="caret"></span>
-							</button>
-							<ul class="dropdown-menu pull-right">
-								<li><a href="#" data-hoodie-action="signout">Sign out</a></li>
-							</ul>
-						</span>
-					</div>
-				</div>
-			</div>
-
-			<div id="app">
-				<div class="time_sheet">
-					<ul class="time_sheet__list"></ul>
-				</div>
-			</div>
+			<div class="logo">timesheet.li</div>
 
 			<div class="content">
+				<div>
+					<form class="entry border--0">
+						<div class="entry-date">
+							<input type="text" name="date" placeholder="date" />
+						</div>
+
+						<ul class="entry__list">
+							<li class="entry__list_item entry-from">
+								<input type="text" name="from" placeholder="from" />
+							</li
+							><li class="entry__list_item entry-until">
+								<input type="text" name="until" placeholder="until" />
+							</li
+							><li class="entry__list_item entry-hours">
+								<input type="text" name="hours" placeholder="hours" />
+							</li
+							><li class="entry__list_item entry-note">
+								<input type="text" name="note" placeholder="note" />
+							</li
+							><li class="entry__list_item entry-add">
+								<input type="button" name="add" value="Add" />
+							</li
+							><li class="entry__list_item entry-abort">
+								<input type="button" name="abort" value="X" />
+							</li>
+						</ul>
+					</form>
+				</div>
+
+				<div class="week header_row">
+					<table class="week__list">
+						<tr>
+							<td class="week__list_item">
+								<span class="v a">MON</span>
+								<span class="v b">MO</span>
+								<span class="v c">M</span>
+							</td>
+							<td class="week__list_item">
+								<span class="v a">TUE</span>
+								<span class="v b">TU</span>
+								<span class="v c">T</span>
+							</td>
+							<td class="week__list_item">
+								<span class="v a">WED</span>
+								<span class="v b">WE</span>
+								<span class="v c">W</span>
+							</td>
+							<td class="week__list_item today">
+								<span class="v a">THU</span>
+								<span class="v b">TH</span>
+								<span class="v c">T</span>
+							</td>
+							<td class="week__list_item">
+								<span class="v a">FRI</span>
+								<span class="v b">FR</span>
+								<span class="v c">F</span>
+							</td>
+							<td class="week__list_item">
+								<span class="v a">SAT</span>
+								<span class="v b">SA</span>
+								<span class="v c">S</span>
+							</td>
+							<td class="week__list_item">
+								<span class="v a">SUN</span>
+								<span class="v b">SU</span>
+								<span class="v c">S</span>
+							</td>
+							<td class="week__list_item rating_3">+23.4</td>
+						</tr>
+					</table>
+				</div>
+
+				<div class="week">
+					<div class="week-title">Woche 31 - 28.7. - 3.8.2014</div>
+					<table class="week__list">
+						<tr>
+							<td class="week__list_item rating_1">
+								<span class="value">8.5</span>
+								<span class="delta">+0.5</span>
+							</td>
+							<td class="week__list_item rating_-1">
+								<span class="value">7.5</span>
+								<span class="delta">-0.5</span>
+							</td>
+							<td class="week__list_item rating_3 selected">
+								<span class="value">9.1</span>
+								<span class="delta">+1.1</span>
+							</td>
+							<td class="week__list_item">
+								<a href="#">Add</a>
+							</td>
+							<td class="week__list_item"></td>
+							<td class="week__list_item rating_0">
+								<span class="value">0</span>
+								<span class="delta">0</span>
+							</td>
+							<td class="week__list_item rating_0">
+								<span class="value">0</span>
+								<span class="delta">0</span>
+							</td>
+							<td class="week__list_item rating_3">
+								<span class="value">25.1</span>
+								<span class="delta">+1.1</span>
+							</td>
+						</tr>
+					</table>
+
+					<div class="">
+
+						<form class="entry entry-mode--edit">
+							<div class="entry-date">
+								<input type="text" name="date" placeholder="date" readonly />
+							</div>
+
+							<div class="slots">
+								<div class="slot">
+									<ul class="slot__list">
+										<li class="slot__list_item slot-from">08.00</li
+										><li class="slot__list_item slot-until">12.00</li
+										><li class="slot__list_item slot-hours">4.00</li
+										><li class="slot__list_item slot-note">This is a note</li
+										><li class="slot__list_item slot-select">
+											<input type="radio" name="select" />
+										</li>
+									</ul>
+								</div>
+								<div class="slot">
+									<ul class="slot__list">
+										<li class="slot__list_item slot-from">13.00</li
+										><li class="slot__list_item slot-until">17.10</li
+										><li class="slot__list_item slot-hours">4.10</li
+										><li class="slot__list_item slot-note">This is a note</li
+										><li class="slot__list_item slot-select">
+											<input type="radio" name="select" />
+										</li>
+									</ul>
+								</div>
+								<div class="slot">
+									<ul class="slot__list">
+										<li class="slot__list_item slot-from">17.30</li
+										><li class="slot__list_item slot-until">18.00</li
+										><li class="slot__list_item slot-hours">0.30</li
+										><li class="slot__list_item slot-note">This is a note</li
+										><li class="slot__list_item slot-select">
+											<input type="radio" name="select" />
+										</li>
+									</ul>
+								</div>
+							</div>
+
+							<ul class="entry__list">
+								<li class="entry__list_item entry-from">
+									<input type="text" name="from" placeholder="from" />
+								</li
+								><li class="entry__list_item entry-until">
+									<input type="text" name="until" placeholder="until" />
+								</li
+								><li class="entry__list_item entry-hours">
+									<input type="text" name="hours" placeholder="hours" />
+								</li
+								><li class="entry__list_item entry-note">
+									<input type="text" name="note" placeholder="note" />
+								</li
+								><li class="entry__list_item entry-add">
+									<input type="button" name="add" value="Add" />
+								</li
+								><li class="entry__list_item entry-edit">
+									<input type="button" name="edit" value="Save" />
+								</li
+								><li class="entry__list_item entry-delete">
+									<input type="button" name="delete" value="D" />
+								</li>
+							</ul>
+						</form>
+
+					</div>
+
+				</div>
+
+				<div class="week">
+					<div class="week-title">Woche 30 - 21.7. - 27.7.2014</div>
+					<table class="week__list">
+						<tr>
+							<td class="week__list_item rating_1">
+								<span class="value">8.5</span>
+								<span class="delta">+0.5</span>
+							</td>
+							<td class="week__list_item rating_-1">
+								<span class="value">7.5</span>
+								<span class="delta">-0.5</span>
+							</td>
+							<td class="week__list_item rating_3">
+								<span class="value">9.1</span>
+								<span class="delta">+1.1</span>
+							</td>
+							<td class="week__list_item rating_-2">
+								<span class="value">7.3</span>
+								<span class="delta">-0.7</span>
+							</td>
+							<td class="week__list_item rating_0">
+								<span class="value">8.0</span>
+								<span class="delta">8.0</span>
+							</td>
+							<td class="week__list_item rating_0">
+								<span class="value">0</span>
+								<span class="delta">0</span>
+							</td>
+							<td class="week__list_item rating_1">
+								<span class="value">0.3</span>
+								<span class="delta">+0.3</span>
+							</td>
+							<td class="week__list_item rating_2">
+								<span class="value">40.7</span>
+								<span class="delta">+0.7</span>
+							</td>
+						</tr>
+					</table>
+				</div>
+
+				<div class="week">
+					<div class="week-title">Woche 30 - 21.7. - 27.7.2014</div>
+					<table class="week__list">
+						<tr>
+							<td class="week__list_item">
+								<span class="value">8.5</span>
+								<span class="delta">+0.5</span>
+								<span class="dot bg-color-dot_1"></span>
+							</td>
+							<td class="week__list_item">
+								<span class="value">7.5</span>
+								<span class="delta">-0.5</span>
+								<span class="dot bg-color-dot_-1"></span>
+							</td>
+							<td class="week__list_item">
+								<span class="value">9.1</span>
+								<span class="delta">+1.1</span>
+								<span class="dot bg-color-dot_3"></span>
+							</td>
+							<td class="week__list_item">
+								<span class="value">7.3</span>
+								<span class="delta">-0.7</span>
+								<span class="dot bg-color-dot_-2"></span>
+							</td>
+							<td class="week__list_item">
+								<span class="value">8.0</span>
+								<span class="delta">0</span>
+								<span class="dot bg-color-dot_0"></span>
+							</td>
+							<td class="week__list_item">
+								<span class="value">0</span>
+								<span class="delta">0</span>
+								<span class="dot bg-color-dot_0"></span>
+							</td>
+							<td class="week__list_item">
+								<span class="value">0.3</span>
+								<span class="delta">+0.3</span>
+								<span class="dot bg-color-dot_1"></span>
+							</td>
+							<td class="week__list_item">
+								<span class="value">40.7</span>
+								<span class="delta">+0.7</span>
+								<span class="dot bg-color-dot_1"></span>
+							</td>
+						</tr>
+					</table>
+				</div>
+
 				<ul id="timeline"></ul>
 
-				<form id="inputmask" onsubmit="return false;">
+				<form id="inputmask" onsubmit="return false;" style="display: none;">
 					<input type="text" name="date" placeholder="date" />
 					<input type="text" name="from" placeholder="from" />
 					<input type="text" name="until" placeholder="until" />
+					<textarea name="note" placeholder="note"></textarea>
 					<button name="add" class="btn">+</button>
 				</form>
 			</div>
@@ -116,5 +378,59 @@
 		<script src="assets/js/app/app.js"></script>
 
 		<script src="assets/js/main.js"></script>
+
+		<script>
+			function styleForm(form) {
+				_.each(form.elements, function(item) {
+					$(item).toggleClass('filled', !!item.value);
+				});
+			}
+
+			$('form.entry').each(function(i, form) {
+				var $form = $(this);
+
+				form.elements.date.value = moment().format('YYYY-MM-DD');
+				$form.on('input', function(evt) {
+					var target = evt.target;
+					var value = target.value;
+
+					var from_date, until_date, diff, values;
+
+					if (target.name === 'until') {
+						from_date = moment(form.elements.from.value, 'HH:mm');
+						until_date = moment(value, 'HH:mm');
+						diff = until_date.diff(from_date, 'seconds');
+
+						form.elements.hours.value = app.utils.formatHours(diff);
+					}
+					if (target.name === 'hours') {
+						from_date = moment(form.elements.from.value, 'HH:mm');
+						values = value.split(/[^\d]/);
+						until_date = from_date.clone().add('hours', values[0] || 0).add('minutes', values[1] || 0);
+						form.elements.until.value = until_date.format('HH:mm');
+					}
+
+					styleForm(form);
+				});
+
+				styleForm(form);
+			});
+
+			$('.slot').on('click', 'input[type="radio"]', function(evt) {
+				var $slot = $(evt.delegateTarget);
+				var $entry = $slot.closest('form');
+
+				var from = $slot.find('.slot-from').text();
+				var until = $slot.find('.slot-until').text();
+				var note = $slot.find('.slot-note').text();
+
+				$entry[0].elements.from.value = from;
+				$entry[0].elements.until.value = until;
+				$entry[0].elements.note.value = note;
+
+				$($entry[0].elements.until).trigger('input');
+			});
+
+		</script>
 	</body>
 </html>

@@ -9,7 +9,8 @@ var app = app || {};
 			date_ts: null,
 			from_ts: null,
 			until_ts: null,
-			span: null
+			span: null,
+			note: ''
 		}
 
 	});

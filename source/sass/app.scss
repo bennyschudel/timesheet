@@ -1,0 +1,324 @@
+@import 'colors';
+@import 'global';
+
+*, *:before, *:after {
+	position: relative;
+	box-sizing: border-box;
+}
+
+body {
+	background-color: #FFF;
+
+	font-family: 'FiraSans-Light';
+	color: darken(white, 80);
+
+	margin: 0;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+a {
+	@extend .bold;
+
+	color: black;
+}
+
+.bold {
+	font-family: 'FiraSans-Regular';
+}
+
+.hoodie-accountbar {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+
+.logo {
+	position: absolute;
+
+	top: 0;
+	right: 0;
+
+	background-color: #5587be;
+	color: white;
+
+	padding: 0.5rem 0.5rem;
+	line-height: 1;
+}
+
+.container {
+	max-width: 960px;
+	margin: 0 auto;
+	padding: 0.5rem;
+}
+
+.content {
+	padding-top: 2rem;
+}
+
+.today {
+	@extend .bold;
+}
+
+.week.header_row {
+	margin-top: 2rem;
+
+	.week__list_item {
+		border-width: 0 1px;
+
+		&:first-child {
+			border-left-width: 0;
+		}
+		&:last-child {
+			@extend .bold;
+
+			border-right-width: 0;
+			border-bottom-width: 3px;
+		}
+	}
+
+	.v {
+		display: none;
+	}
+}
+
+.entry {
+	width: 100%;
+	margin-bottom: 1rem;
+	border: 0.5rem solid transparent;
+
+	input {
+		position: relative;
+		width: 100%;
+	}
+}
+.entry__list {
+	margin: 0;
+	padding: 0;
+
+	list-style-type: none;
+}
+.entry__list_item {
+	display: inline-block;
+	border-style: solid;
+	border-width: 0 5px 0 0;
+	border-color: transparent;
+	vertical-align: top;
+
+	&:last-child {
+		border-right-width: 0;
+	}
+}
+.entry-date {
+	width: 15%;
+}
+.entry-from,
+.entry-until,
+.entry-hours {
+	width: 15%;
+}
+.entry-date {
+	input {
+		font-family: FiraSans-Regular;
+	}
+}
+.entry-note {
+	width: 40%;
+}
+.entry-add {
+	width: 10%;
+}
+.entry-abort {
+	width: 5%;
+}
+.entry-edit {
+	display: none;
+	width: 10%;
+}
+.entry-delete {
+	display: none;
+	width: 5%;
+	input {
+		color: #db0c27;
+		border-color: #db0c27;
+	}
+}
+.entry-mode--edit {
+	.entry-add {
+		display: none;
+	}
+	.entry-edit,
+	.entry-delete {
+		display: inline-block;
+	}
+}
+
+.slot {
+	width: 100%;
+}
+.slot__list {
+	margin: 0;
+	padding: 0;
+
+	list-style-type: none;
+}
+.slot__list_item {
+	display: inline-block;
+	text-align: left;
+	vertical-align: top;
+}
+.slot-from,
+.slot-until,
+.slot-hours {
+	width: 15%;
+}
+.slot-note {
+	width: 50%;
+}
+.slot-select {
+	width: 5%;
+	text-align: center;
+
+	input {
+		margin-top: 2px;
+		margin-bottom: -2px;
+
+		width: 1rem;
+		height: 1rem;
+	}
+}
+
+.week {
+	font-size: 1rem;
+	margin-top: 1rem;
+}
+.week-title {
+	font-size: 0.9rem;
+	margin-top: 0.2rem;
+	color: darken(white, 50);
+}
+.week__list {
+	list-style-type: none;
+	width: 100%;
+}
+.week__list_item {
+	border: 1px solid darken(white, 20);
+	border-bottom-width: 3px;
+	width: 12%;
+	text-align: center;
+	overflow: hidden;
+	padding: 0.2rem 0;
+
+	.value,
+	.delta {
+		display: inline-block;
+		margin: 0 0.2rem;
+	}
+
+	.value {
+		color: darken(white, 60);
+	}
+	.delta {
+		@extend .bold;
+	}
+
+	&:last-child {
+		width: 16%;
+		text-align: right;
+	}
+
+	&.selected {
+		border-bottom-width: 0;
+	}
+
+	&.rating_-4 { border-bottom-color: $rating_-4; };
+	&.rating_-3 { border-bottom-color: $rating_-3; };
+	&.rating_-2 { border-bottom-color: $rating_-2; };
+	&.rating_-1 { border-bottom-color: $rating_-1; };
+	&.rating_0  { border-bottom-color: $rating_0;  };
+	&.rating_1  { border-bottom-color: $rating_1;  };
+	&.rating_2  { border-bottom-color: $rating_2;  };
+	&.rating_3  { border-bottom-color: $rating_3;  };
+	&.rating_4  { border-bottom-color: $rating_4;  };
+}
+
+@media (min-width: 780px) {
+	.week.header_row {
+		.v {
+			&.a {
+				display: inline;
+			}
+		}
+	}
+}
+
+@media (min-width: 460px) and (max-width: 780px) {
+	.week.header_row {
+		.v {
+			&.b {
+				display: inline;
+			}
+		}
+	}
+}
+
+@media (max-width: 600px) {
+	.week__list_item {
+		.value,
+		.delta {
+			display: block;
+		}
+	}
+}
+
+@media (max-width: 460px) {
+	.week.header_row {
+		.v {
+			&.c {
+				display: inline;
+			}
+		}
+	}
+
+	.entry-date {
+		width: 50%;
+	}
+	.entry-from,
+	.entry-until {
+		width: 25%;
+	}
+	.entry-hours {
+		width: 25%;
+	}
+	.entry-note {
+		display: block;
+		width: 100%;
+	}
+	.entry-add,
+	.entry-edit {
+		width: 40%
+	}
+	.entry-abort,
+	.entry-delete {
+		width: 10%;
+	}
+	.slot-from,
+	.slot-until {
+		width: 20%;
+	}
+	.slot-hours {
+		width: 20%;
+	}
+	.slot-note {
+		width: 100%;
+		font-size: 0.9rem;
+		line-height: 1.2;
+	}
+	.slot-select {
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+}
