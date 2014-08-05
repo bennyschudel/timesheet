@@ -387,25 +387,53 @@
 					$(item).toggleClass('filled', !!item.value);
 				});
 			}
+			function resetForm(form) {
+				form.reset();
+				form.elements.date.value = moment().format('YYYY-MM-DD');
+
+				$(form).removeClass('entry--changed');
+
+				styleForm(form);
+			}
 
 			$('form.entry').each(function(i, form) {
 				var $form = $(this);
 
-				form.elements.date.value = moment().format('YYYY-MM-DD');
+				var last_key = null;
+
+				$form.on('keydown', function(evt) {
+					last_key = evt.keyCode;
+				});
+
 				$form.on('input', function(evt) {
 					var target = evt.target;
 					var value = target.value;
 
 					var from_date, until_date, diff, values;
 
-					if (target.name === 'until') {
+					$form.addClass('entry--changed');
+
+					if (target.name === 'from') {
+						if (value.substr(-1) === '-') {
+							target.value = value.replace('-', '');
+							$(form.elements.until).focus();
+						}
+					}
+					else if (target.name === 'until') {
+						if (value === '' && last_key === 8) {
+							$(form.elements.from).focus();
+							var from_value = form.elements.from.value;
+
+							form.elements.from.value = from_value.substr(0, from_value.length - 1);
+						}
+
 						from_date = moment(form.elements.from.value, 'HH:mm');
 						until_date = moment(value, 'HH:mm');
 						diff = until_date.diff(from_date, 'seconds');
 
 						form.elements.hours.value = app.utils.formatHours(diff);
 					}
-					if (target.name === 'hours') {
+					else if (target.name === 'hours') {
 						from_date = moment(form.elements.from.value, 'HH:mm');
 						values = value.split(/[^\d]/);
 						until_date = from_date.clone().add('hours', values[0] || 0).add('minutes', values[1] || 0);
@@ -415,7 +443,16 @@
 					styleForm(form);
 				});
 
-				styleForm(form);
+				$form.on('click', function(evt) {
+					var target = evt.target;
+					var name = target.name;
+
+					if (name === 'abort') {
+						resetForm(form);
+					}
+				});
+
+				resetForm(form);
 			});
 
 			$('.slot').on('click', 'input[type="radio"]', function(evt) {

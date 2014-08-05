@@ -28,7 +28,7 @@ a {
 }
 
 .bold {
-	font-weight: 500;
+	font-weight: 400;
 }
 
 .hoodie-accountbar {
@@ -95,6 +95,15 @@ a {
 		position: relative;
 		width: 100%;
 	}
+
+	&.entry--changed {
+		.entry-add {
+			width: 10%;
+		}
+		.entry-abort {
+			display: inline-block;
+		}
+	}
 }
 .entry__list {
 	margin: 0;
@@ -123,16 +132,17 @@ a {
 }
 .entry-date {
 	input {
-		font-family: FiraSans-Regular;
+		font-weight: 400;
 	}
 }
 .entry-note {
 	width: 40%;
 }
 .entry-add {
-	width: 10%;
+	width: 15%;
 }
 .entry-abort {
+	display: none;
 	width: 5%;
 }
 .entry-edit {
