@@ -184,7 +184,7 @@
 
 					<div class="">
 
-						<form class="entry entry-mode--edit">
+						<form class="entry">
 							<div class="entry-date">
 								<input type="text" name="date" placeholder="date" readonly />
 							</div>
@@ -240,6 +240,9 @@
 								</li
 								><li class="entry__list_item entry-add">
 									<input type="button" name="add" value="Add" />
+								</li
+								><li class="entry__list_item entry-abort">
+									<input type="button" name="abort" value="X" />
 								</li
 								><li class="entry__list_item entry-edit">
 									<input type="button" name="edit" value="Save" />
@@ -457,17 +460,19 @@
 
 			$('.slot').on('click', 'input[type="radio"]', function(evt) {
 				var $slot = $(evt.delegateTarget);
-				var $entry = $slot.closest('form');
+				var $form = $slot.closest('form');
 
 				var from = $slot.find('.slot-from').text();
 				var until = $slot.find('.slot-until').text();
 				var note = $slot.find('.slot-note').text();
 
-				$entry[0].elements.from.value = from;
-				$entry[0].elements.until.value = until;
-				$entry[0].elements.note.value = note;
+				$form[0].elements.from.value = from;
+				$form[0].elements.until.value = until;
+				$form[0].elements.note.value = note;
 
-				$($entry[0].elements.until).trigger('input');
+				$($form[0].elements.until).trigger('input');
+
+				$form.addClass('entry-mode--edit')
 			});
 
 		</script>

@@ -97,11 +97,13 @@ a {
 	}
 
 	&.entry--changed {
-		.entry-add {
-			width: 10%;
-		}
-		.entry-abort {
-			display: inline-block;
+		&:not(.entry-mode--edit) {
+			.entry-add {
+				width: 10%;
+			}
+			.entry-abort {
+				display: inline-block;
+			}
 		}
 	}
 }
@@ -158,7 +160,8 @@ a {
 	}
 }
 .entry-mode--edit {
-	.entry-add {
+	.entry-add,
+	.entry-abort {
 		display: none;
 	}
 	.entry-edit,
