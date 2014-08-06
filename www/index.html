@@ -76,7 +76,7 @@
 
 			<div class="content">
 				<div>
-					<form class="entry border--0">
+					<form class="entry entry-mode--add border--0">
 						<div class="entry-date">
 							<input type="text" name="date" placeholder="date" />
 						</div>
@@ -184,7 +184,7 @@
 
 					<div class="">
 
-						<form class="entry">
+						<form class="entry entry-mode--add">
 							<div class="entry-date">
 								<input type="text" name="date" placeholder="date" readonly />
 							</div>
@@ -241,11 +241,11 @@
 								><li class="entry__list_item entry-add">
 									<input type="button" name="add" value="Add" />
 								</li
-								><li class="entry__list_item entry-abort">
-									<input type="button" name="abort" value="X" />
-								</li
 								><li class="entry__list_item entry-edit">
 									<input type="button" name="edit" value="Save" />
+								</li
+								><li class="entry__list_item entry-abort">
+									<input type="button" name="abort" value="X" />
 								</li
 								><li class="entry__list_item entry-delete">
 									<input type="button" name="delete" value="D" />
@@ -385,6 +385,8 @@
 		<script src="assets/js/main.js"></script>
 
 		<script>
+			var KEY_BACKSPACE = 8;
+
 			function styleForm(form) {
 				_.each(form.elements, function(item) {
 					$(item).toggleClass('filled', !!item.value);
@@ -394,7 +396,12 @@
 				form.reset();
 				form.elements.date.value = moment().format('YYYY-MM-DD');
 
-				$(form).removeClass('entry--changed');
+				$(form)
+					.removeClass(function(index, cls) {
+						return cls.match(/(entry-mode--[^\s]+)/ || []).join(' ');
+					})
+					.removeClass('entry--changed')
+					.addClass('entry-mode--add');
 
 				styleForm(form);
 			}
@@ -403,6 +410,8 @@
 				var $form = $(this);
 
 				var last_key = null;
+//TODO: add support for 12h format depending on settings
+				var valid_time_format = ['HH:mm'];
 
 				$form.on('keydown', function(evt) {
 					last_key = evt.keyCode;
@@ -411,36 +420,49 @@
 				$form.on('input', function(evt) {
 					var target = evt.target;
 					var value = target.value;
+					var els = form.elements;
 
-					var from_date, until_date, diff, values;
+					var from_date, until_date, diff;
 
 					$form.addClass('entry--changed');
 
 					if (target.name === 'from') {
 						if (value.substr(-1) === '-') {
 							target.value = value.replace('-', '');
-							$(form.elements.until).focus();
+							$(els.until).trigger('focus');
 						}
 					}
 					else if (target.name === 'until') {
-						if (value === '' && last_key === 8) {
-							$(form.elements.from).focus();
-							var from_value = form.elements.from.value;
-
-							form.elements.from.value = from_value.substr(0, from_value.length - 1);
+						if (value === '' && last_key === KEY_BACKSPACE) {
+							$(els.from).trigger('focus');
+							var from_value = els.from.value;
+								// remove last caracter from previous field
+							els.from.value = from_value.substr(0, from_value.length - 1);
 						}
 
-						from_date = moment(form.elements.from.value, 'HH:mm');
-						until_date = moment(value, 'HH:mm');
+						from_date = moment(els.from.value, valid_time_format);
+						until_date = moment(value, valid_time_format);
 						diff = until_date.diff(from_date, 'seconds');
 
-						form.elements.hours.value = app.utils.formatHours(diff);
+							// clamp maximal hours
+						var hours_value = Math.max(Math.min(app.utils.formatHours(diff), 8), 0);
+						var hours_el = els.hours;
+
+							// skip hours with tab if we have a valid value
+						if (hours_value) {
+							hours_el.value = hours_value;
+							hours_el.tabIndex = -1;
+						}
+						else {
+							hours_el.value = '';
+							hours_el.tabIndex = 0;
+						}
 					}
 					else if (target.name === 'hours') {
-						from_date = moment(form.elements.from.value, 'HH:mm');
-						values = value.split(/[^\d]/);
+						from_date = moment(els.from.value, valid_time_format);
+						var values = value.split(/[^\d]/);
 						until_date = from_date.clone().add('hours', values[0] || 0).add('minutes', values[1] || 0);
-						form.elements.until.value = until_date.format('HH:mm');
+						els.until.value = until_date.format(valid_time_format);
 					}
 
 					styleForm(form);
@@ -472,7 +494,11 @@
 
 				$($form[0].elements.until).trigger('input');
 
-				$form.addClass('entry-mode--edit')
+				$form
+					.removeClass(function(index, cls) {
+						return cls.match(/(entry-mode--[^\s]+)/ || []).join(' ');
+					})
+					.addClass('entry-mode--edit');
 			});
 
 		</script>
