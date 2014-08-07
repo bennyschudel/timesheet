@@ -27,6 +27,11 @@ a {
 	color: black;
 }
 
+	// version class for responsive text
+.v {
+	display: none;
+}
+
 .bold {
 	font-weight: 400;
 }
@@ -41,7 +46,7 @@ a {
 	position: absolute;
 
 	top: 0;
-	right: 0;
+	right: 30px;
 
 	background-color: #5587be;
 	color: white;
@@ -80,10 +85,6 @@ a {
 			border-bottom-width: 3px;
 		}
 	}
-
-	.v {
-		display: none;
-	}
 }
 
 .entry {
@@ -119,7 +120,7 @@ a {
 	}
 }
 .entry__list {
-	margin: 0;
+	margin: 0 -2px;
 	padding: 0;
 
 	list-style-type: none;
@@ -127,16 +128,16 @@ a {
 .entry__list_item {
 	display: inline-block;
 	border-style: solid;
-	border-width: 0 5px 0 0;
+	border-width: 0 2px;
 	border-color: transparent;
 	vertical-align: top;
-
-	&:last-child {
-		border-right-width: 0;
-	}
 }
 .entry-date {
-	width: 15%;
+	border-style: solid;
+	border-width: 0 2px;
+	border-color: transparent;
+	width: 30%;
+	margin: 0 -2px;
 }
 .entry-from,
 .entry-until,
@@ -195,7 +196,7 @@ a {
 	width: 100%;
 }
 .slot__list {
-	margin: 0;
+	margin: 0 -2px;
 	padding: 0;
 
 	list-style-type: none;
@@ -204,6 +205,10 @@ a {
 	display: inline-block;
 	text-align: left;
 	vertical-align: top;
+
+	border-style: solid;
+	border-width: 0 2px;
+	border-color: transparent;
 }
 .slot-from,
 .slot-until,
@@ -215,7 +220,7 @@ a {
 }
 .slot-select {
 	width: 5%;
-	text-align: center;
+	text-align: right;
 
 	input {
 		margin-top: 2px;
@@ -281,7 +286,7 @@ a {
 }
 
 @media (min-width: 780px) {
-	.week.header_row {
+	.week__list_item {
 		.v {
 			&.a {
 				display: inline;
@@ -291,7 +296,7 @@ a {
 }
 
 @media (min-width: 460px) and (max-width: 780px) {
-	.week.header_row {
+	.week__list_item {
 		.v {
 			&.b {
 				display: inline;
@@ -309,8 +314,9 @@ a {
 	}
 }
 
+
 @media (max-width: 460px) {
-	.week.header_row {
+	.week__list_item {
 		.v {
 			&.c {
 				display: inline;
@@ -318,9 +324,6 @@ a {
 		}
 	}
 
-	.entry-date {
-		width: 50%;
-	}
 	.entry-from,
 	.entry-until {
 		width: 25%;
@@ -330,7 +333,7 @@ a {
 	}
 	.entry-note {
 		display: block;
-		width: 100%;
+		width: 100% !important;
 	}
 	.entry-add,
 	.entry-edit {

@@ -164,7 +164,10 @@
 								<span class="delta">+1.1</span>
 							</td>
 							<td class="week__list_item">
-								<a href="#">Add</a>
+								<a href="#"
+									><span class="v a">Add</span
+									><span class="v b c">A</span
+								></a>
 							</td>
 							<td class="week__list_item"></td>
 							<td class="week__list_item rating_0">
@@ -394,6 +397,7 @@
 			}
 			function resetForm(form) {
 				form.reset();
+//TODO: support for timeformat through settings
 				form.elements.date.value = moment().format('YYYY-MM-DD');
 
 				$(form)
@@ -442,6 +446,8 @@
 							hours_el.value = '';
 							hours_el.tabIndex = 0;
 						}
+
+						styleForm(form);
 					}
 
 					if (target.name === 'from') {
@@ -458,7 +464,8 @@
 							$(els.from).trigger('focus');
 							var from_value = els.from.value;
 								// remove last caracter from previous field
-							els.from.value = from_value.substr(0, from_value.length - 1);
+							// not sure if this is better
+							//els.from.value = from_value.substr(0, from_value.length - 1);
 						}
 						else {
 							updateHours();
