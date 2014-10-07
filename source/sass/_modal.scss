@@ -1,0 +1,27 @@
+.modal {
+	box-shadow: 0 4px 0 0 rgba(black, 0.15);
+
+	border: 1px solid black;
+	display: inline-block;
+
+	form {
+		min-width: 320px;
+		padding-right: 20%;
+
+		.input {
+			width: 100%;
+		}
+	}
+
+	.alert {
+		margin: 1rem;
+		color: $color--error;
+	}
+}
+.modal__body {
+	margin: 1rem;
+}
+
+.modal[data-modal-theme="default"] {
+	background-color: white;
+}

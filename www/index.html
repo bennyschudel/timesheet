@@ -24,55 +24,73 @@
 	</head>
 	<body>
 
-		<div class="hoodie-accountbar">
-
-			<div class="hoodie-account-signedout">
-				<span class="btn-group">
-					<button class="btn btn-small btn-inverse" data-hoodie-action="signup">Sign Up</button>
-					<button class="btn btn-small dropdown-toggle btn-inverse" data-toggle="dropdown">
-						<span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu pull-right">
-						<li><a href="#" data-hoodie-action="signin">Sign In</a></li>
-						<li><a href="#" data-hoodie-action="resetpassword">Reset Password</a></li>
-						<li><a href="#" data-hoodie-action="destroy">Clear local data</a></li>
-					</ul>
-				</span>
-			</div>
-
-			<div class="hoodie-account-signedin">
-				Hello,
-				<span class="hoodie-username"><!-- usern name will be filled in here --></span>
-				<span class="btn-group">
-					<button class="btn btn-small btn-inverse" data-hoodie-action="signout">Sign Out</button>
-					<button class="btn btn-small dropdown-toggle btn-inverse" data-toggle="dropdown">
-						<span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu pull-right">
-						<li><a href="#" data-hoodie-action="changepassword">Change Password</a></li>
-						<li><a href="#" data-hoodie-action="changeusername">Change Username</a></li>
-						<li><a href="#" data-hoodie-action="destroy">Destroy Account</a></li>
-					</ul>
-				</span>
-			</div>
-
-			<div class="hoodie-account-error">
-				Hello,
-				<span class="hoodie-username"><!-- username will be filled in here --></span>.
-				<span class="btn-group">
-					<button class="btn btn-small btn-danger" data-hoodie-action="signin">Authentication error: Sign in again</button>
-					<button class="btn btn-small dropdown-toggle btn-danger" data-toggle="dropdown">
-						<span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu pull-right">
-						<li><a href="#" data-hoodie-action="signout">Sign out</a></li>
-					</ul>
-				</span>
-			</div>
-		</div>
-
 		<div class="container">
 			<div class="logo">timesheet.li</div>
+
+			<div class="authenticated">
+				<span>Hello, <span class="hoodie-username"></span></span>
+				— <button class="button" data-hoodie-action="signout">sign out</button>
+			</div>
+			<div class="unauthenticated">
+				<button class="button" data-hoodie-action="signin">sign in</button>
+				&nbsp;—or—&nbsp;
+				<button class="button" data-hoodie-action="signup">sign up</button>
+			</div>
+
+			<div id="modals" class="modals" style="display:none;">
+				<div class="centroid">
+					<div class="centroid-cell">
+
+						<div id="modal-signup"
+							 class="modal"
+							 style="display:none;"
+							 data-modal-mode="form"
+							 data-modal-type="signup"
+							 data-modal-theme="default"
+						>
+							<div class="modal__body">
+								<form>
+									<input type="text" name="username" class="input" placeholder="username"><br>
+									<input type="password" name="password" class="input" placeholder="password"><br>
+									<input type="submit" value="sign up">
+								</form>
+							</div>
+						</div>
+
+						<div id="modal-signin"
+							 class="modal"
+							 style="display:none;"
+							 data-modal-mode="form"
+							 data-modal-type="signin"
+							 data-modal-theme="default"
+						>
+							<div class="modal__body">
+								<form>
+									<input type="text" name="username" class="input" placeholder="username"><br>
+									<input type="password" name="password" class="input" placeholder="password"><br>
+									<input type="submit" value="sign in">
+								</form>
+							</div>
+						</div>
+
+						<div id="modal-lostpw"
+							 class="modal"
+							 style="display:none;"
+							 data-modal-mode="form"
+							 data-modal-type="lostpw"
+							 data-modal-theme="default"
+						>
+							<div class="modal__body">
+								<form>
+									<input type="text" name="email" class="input" placeholder="email"><br>
+									<input type="submit" value="reset password">
+								</form>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
 
 			<div class="content">
 				<div>
@@ -370,13 +388,16 @@
 		<!-- Load the dynamic version of hoodie.js that includes all the plugin code-->
 		<script src="/_api/_files/hoodie.js"></script>
 
-		<script src="assets/vendor/hoodie.accountbar.bootstrap.js"></script>
-		<script src="assets/vendor/bootstrap.modalform.js"></script>
+		<!-- <script src="assets/vendor/hoodie.accountbar.bootstrap.js"></script> -->
+		<!-- <script src="assets/vendor/bootstrap.modalform.js"></script> -->
+
+		<script src="assets/js/app/modal_form.js"></script>
 
 		<script src="assets/js/vendor/backbone.js"></script>
 		<script src="assets/js/vendor/backbone-hoodie.js"></script>
 
 		<script src="assets/js/app/utils.js"></script>
+		<script src="assets/js/app/user_management.js"></script>
 		<script src="assets/js/app/time_entry.model.js"></script>
 		<script src="assets/js/app/time_entry.view.js"></script>
 		<script src="assets/js/app/time_sheet.collection.js"></script>

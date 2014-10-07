@@ -64,7 +64,9 @@ input[readonly] {
 }
 input[type="text"] {
 }
-input[type="button"], button {
+input[type="button"],
+input[type="submit"],
+button {
   font-family: 'Fira Sans';
   font-weight: 400;
 

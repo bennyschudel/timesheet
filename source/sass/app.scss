@@ -1,39 +1,23 @@
+@import '../../bower_components/bourbon/dist/bourbon';
+
 @import 'colors';
 @import 'global';
 
-*, *:before, *:after {
-	position: relative;
-	box-sizing: border-box;
+@import 'modal';
+
+.centroid {
+	display: table;
+	width: 100%;
+	height: 100%;
 }
+.centroid-cell {
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
 
-body {
-	background-color: #FFF;
-
-	font-family: 'Fira Sans';
-	font-weight: 300;
-
-	color: darken(white, 80);
-
-	margin: 0;
-}
-
-table {
-	border-collapse: collapse;
-}
-
-a {
-	@extend .bold;
-
-	color: black;
-}
-
-	// version class for responsive text
-.v {
-	display: none;
-}
-
-.bold {
-	font-weight: 400;
+	> * {
+		text-align: left;
+	}
 }
 
 .hoodie-accountbar {
@@ -46,7 +30,7 @@ a {
 	position: absolute;
 
 	top: 0;
-	right: 30px;
+	right: 0;
 
 	background-color: #5587be;
 	color: white;
@@ -67,6 +51,29 @@ a {
 
 .today {
 	@extend .bold;
+}
+
+.modals {
+	@include position(absolute, 0px 0px 0px 0px);
+
+	background-color: rgba(white, 0.9);
+
+	z-index: 101;
+}
+
+.authenticated, .unauthenticated {
+	display: none;
+}
+
+html[data-hoodie-account-status="signedout"] {
+	.unauthenticated {
+		display: block;
+	}
+}
+html[data-hoodie-account-status="signedin"] {
+	.authenticated {
+		display: block;
+	}
 }
 
 .week.header_row {

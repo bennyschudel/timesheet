@@ -1,3 +1,51 @@
+%bold {
+	font-weight: 400;
+}
+
+*, *:before, *:after {
+	position: relative;
+	box-sizing: border-box;
+}
+
+body {
+	background-color: #FFF;
+
+	font-family: 'Fira Sans';
+	font-weight: 300;
+
+	color: darken(white, 80);
+
+	margin: 0;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+a {
+	@extend %bold;
+
+	color: black;
+}
+
+	// version class for responsive text
+.v {
+	display: none;
+}
+
 .border--0 {
 	border-width: 0 !important;
 }
+
+.width--100p {
+	width: 100%;
+}
+
+.margin-right--25p {
+	margin-right: 25%;
+}
+
+.bold {
+	@extend %bold;
+}
+
