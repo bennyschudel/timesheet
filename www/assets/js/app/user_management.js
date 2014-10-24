@@ -13,7 +13,7 @@ var app = app || {};
 	}
 
 	UserManagement.prototype.subscribeToHoodieEvents = function() {
-		hoodie.account.on('signin reauthenticated', this.handleUserAuthenticated.bind(this));
+		hoodie.account.on('signup signin reauthenticated', this.handleUserAuthenticated.bind(this));
 		hoodie.account.on('signout', this.handleUserUnauthenticated.bind(this));
 
 		hoodie.on('account:error:unauthenticated remote:error:unauthenticated', this.handleUserAuthenticationError.bind(this));
